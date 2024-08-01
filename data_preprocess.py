@@ -16,6 +16,10 @@ if __name__ == '__main__':
         img_list = glob(osp.join('data', _dir, '*.png'))
         edge_dir = osp.join(new_dir, f'{_dir}_A')
         color_dir = osp.join(new_dir, f'{_dir}_B')
+
+        os.makedirs(edge_dir, exist_ok=True)
+        os.makedirs(color_dir, exist_ok=True)
+
         for img_path in tqdm(img_list):
 
             img_base_name = osp.basename(img_path)
