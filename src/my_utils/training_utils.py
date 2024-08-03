@@ -242,11 +242,13 @@ class PairedDataset(torch.utils.data.Dataset):
             self.input_folder = os.path.join(dataset_folder, "test_A")
             self.output_folder = os.path.join(dataset_folder, "test_B")
             captions = os.path.join(dataset_folder, "test_prompts.json")
+        """
         with open(captions, "r") as f:
             self.captions = json.load(f)
         self.img_names = list(self.captions.keys())
         self.T = build_transform(image_prep)
         self.tokenizer = tokenizer
+        """
 
     def __len__(self):
         """
@@ -285,7 +287,7 @@ class PairedDataset(torch.utils.data.Dataset):
         img_name = self.img_names[idx]
         input_img = Image.open(os.path.join(self.input_folder, img_name))
         output_img = Image.open(os.path.join(self.output_folder, img_name))
-        caption = self.captions[img_name]
+        #caption = self.captions[img_name]
 
         # input images scaled to 0,1
         img_t = self.T(input_img)
@@ -295,16 +297,18 @@ class PairedDataset(torch.utils.data.Dataset):
         output_t = F.to_tensor(output_t)
         output_t = F.normalize(output_t, mean=[0.5], std=[0.5])
 
+        """
         input_ids = self.tokenizer(
             caption, max_length=self.tokenizer.model_max_length,
             padding="max_length", truncation=True, return_tensors="pt"
         ).input_ids
+        """
 
         return {
             "output_pixel_values": output_t,
             "conditioning_pixel_values": img_t,
-            "caption": caption,
-            "input_ids": input_ids,
+            #"caption": caption,
+            #"input_ids": input_ids,
         }
 
 
