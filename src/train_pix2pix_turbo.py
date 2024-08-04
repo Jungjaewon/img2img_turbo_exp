@@ -172,7 +172,7 @@ def main(args):
                 x_tgt = batch["output_pixel_values"]
                 B, C, H, W = x_src.shape
                 # forward pass
-                x_tgt_pred = net_pix2pix(x_src, prompt_tokens=None, deterministic=True) # batch["input_ids"]
+                x_tgt_pred = net_pix2pix(x_src, prompt_tokens=batch["input_ids"], deterministic=True)
                 # Reconstruction loss
                 loss_l2 = F.mse_loss(x_tgt_pred.float(), x_tgt.float(), reduction="mean") * args.lambda_l2
                 loss_lpips = net_lpips(x_tgt_pred.float(), x_tgt.float()).mean() * args.lambda_lpips
