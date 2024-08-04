@@ -238,20 +238,18 @@ class PairedDataset(torch.utils.data.Dataset):
         if split == "train":
             self.input_folder = os.path.join(dataset_folder, "train_A")
             self.output_folder = os.path.join(dataset_folder, "train_B")
-            #captions = os.path.join(dataset_folder, "train_prompts.json")
+            captions = os.path.join(dataset_folder, "train_prompts.json")
         elif split == "test":
             self.input_folder = os.path.join(dataset_folder, "test_A")
             self.output_folder = os.path.join(dataset_folder, "test_B")
-            #captions = os.path.join(dataset_folder, "test_prompts.json")
+            captions = os.path.join(dataset_folder, "test_prompts.json")
         self.img_names = glob(osp.join(self.input_folder, '*.png'))
         self.img_names = [osp.basename(x) for x in self.img_names]
         self.T = build_transform(image_prep)
-        """
         with open(captions, "r") as f:
             self.captions = json.load(f)
         self.img_names = list(self.captions.keys())
         self.tokenizer = tokenizer
-        """
 
     def __len__(self):
         """
