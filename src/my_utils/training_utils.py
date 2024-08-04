@@ -255,7 +255,7 @@ class PairedDataset(torch.utils.data.Dataset):
         Returns:
         int: The total number of items in the dataset.
         """
-        return len(self.captions)
+        return len(self.input_folder)
 
     def __getitem__(self, idx):
         """
